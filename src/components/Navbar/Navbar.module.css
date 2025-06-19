@@ -170,7 +170,7 @@
   transition: all 0.3s ease;
 }
 
-.mobileMenuItem:hover {
+.mobileMenuItem:hover, .mobileMenuItem.active {
   color: var(--primary-color);
   transform: translateX(10px);
 }

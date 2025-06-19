@@ -134,8 +134,31 @@ const HeroSection = () => {
     });
   };
   
+  // Add this useEffect to ensure proper contrast with the background
+  useEffect(() => {
+    if (heroRef.current) {
+      // Add a dark overlay to improve text visibility
+      const overlay = document.createElement('div');
+      overlay.style.position = 'absolute';
+      overlay.style.top = '0';
+      overlay.style.left = '0';
+      overlay.style.width = '100%';
+      overlay.style.height = '100%';
+      overlay.style.background = 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8))';
+      overlay.style.zIndex = '1';
+      
+      heroRef.current.prepend(overlay);
+      
+      return () => {
+        if (overlay.parentNode) {
+          overlay.parentNode.removeChild(overlay);
+        }
+      };
+    }
+  }, []);
+  
   return (
-    <HeroSectionWithBg className={styles.heroSection}>
+    <HeroSectionWithBg ref={heroRef} className={styles.heroSection}>
       {/* Video Background */}
       {showVideo && (
         <div className={styles.videoBackground}>

@@ -78,14 +78,28 @@ function App() {
             
             <Navbar />
             <main>
-              <HeroSection />
-              <CustomerSection />
-              <CapabilitiesSection />
-              <ProjectShowcase />
-              <ParallaxSection />
-              <ScrollScene />
-              <TestimonialsSection />
-              <CarbonGraph />
+              <section id="home">
+                <HeroSection />
+              </section>
+              
+              <section id="services">
+                <CustomerSection />
+                <CapabilitiesSection />
+              </section>
+              
+              <section id="projects">
+                <ProjectShowcase />
+              </section>
+              
+              <section id="about">
+                <ParallaxSection />
+                <ScrollScene />
+              </section>
+              
+              <section id="contact">
+                <TestimonialsSection />
+                <CarbonGraph />
+              </section>
             </main>
             <Footer />
           </>
