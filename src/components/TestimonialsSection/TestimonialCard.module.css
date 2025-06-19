@@ -1,23 +1,96 @@
 .testimonialCard {
   flex: 0 0 100%;
   padding: var(--spacing-lg);
-  background-color: #6c5ce7;
+  background: linear-gradient(135deg, #6c5ce7, #5e52d1);
   border-radius: var(--radius-lg);
   color: white;
-  box-shadow: 0 10px 30px rgba(108, 92, 231, 0.2);
+  box-shadow: 0 15px 40px rgba(108, 92, 231, 0.3);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
+  isolation: isolate;
+}
+
+/* Advanced animated glow effect */
+.testimonialCard::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    45deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.05) 40%, 
+    transparent 60%
+  );
+  border-radius: calc(var(--radius-lg) + 2px);
+  z-index: -1;
+  opacity: 0.6;
+  mask-image: radial-gradient(circle at 50% 50%, white, transparent 70%);
+  animation: shimmerGlow 8s ease-in-out infinite alternate;
+}
+
+@keyframes shimmerGlow {
+  0% { 
+    background-position: -200px -200px;
+    opacity: 0.4;
+  }
+  100% { 
+    background-position: 200px 200px;
+    opacity: 0.8;
+  }
+}
+
+/* Enhanced grid with subtle animation */
+.testimonialCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  opacity: 0.2;
+  z-index: -1;
+  animation: gridShift 20s linear infinite;
+}
+
+@keyframes gridShift {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 20px; }
+}
+
+/* Advanced hover state */
+.testimonialCard:hover {
+  transform: translateY(-8px) translateZ(10px) rotateX(2deg);
+  box-shadow: 
+    0 25px 50px rgba(108, 92, 231, 0.4),
+    0 5px 20px rgba(255, 255, 255, 0.1);
 }
 
 .quoteContainer {
   position: relative;
   padding: var(--spacing-lg) 0;
   margin-bottom: var(--spacing-lg);
+  transform-style: preserve-3d;
 }
 
+/* Enhanced quote icon with blur and glow */
 .quoteIcon {
   position: absolute;
   top: 0;
   left: 0;
-  opacity: 0.3;
+  opacity: 0.15;
+  font-size: 3.5rem;
+  transform: translateZ(5px);
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  filter: blur(1px);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .quote {
@@ -26,6 +99,14 @@
   font-style: italic;
   position: relative;
   z-index: 1;
+  transform: translateZ(25px);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Text selection styling */
+.quote::selection {
+  background: rgba(255, 255, 255, 0.3);
+  text-shadow: none;
 }
 
 .authorContainer {
@@ -34,29 +115,73 @@
   align-items: center;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   padding-top: var(--spacing-md);
+  transform-style: preserve-3d;
 }
 
 .authorInfo {
   flex: 1;
+  transform: translateZ(20px);
 }
 
 .author {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: var(--spacing-xs);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: inline-block;
+}
+
+/* Advanced underline effect on hover */
+.author::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+  transition: width 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.authorInfo:hover .author::after {
+  width: 100%;
 }
 
 .title {
   font-size: 0.9rem;
   opacity: 0.8;
   margin-bottom: var(--spacing-xs);
+  letter-spacing: 0.02em;
 }
 
 .company {
   font-size: 0.9rem;
   font-weight: 600;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.02em;
 }
 
+.company::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.authorInfo:hover .company::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Enhanced logo container with 3D rotation and elevation */
 .logoContainer {
   width: 80px;
   height: 80px;
@@ -66,15 +191,60 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-shadow: 
+    0 8px 20px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  transform: translateZ(25px) rotate(-3deg);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+/* Add subtle gradient on hover */
+.logoContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.testimonialCard:hover .logoContainer {
+  transform: translateZ(40px) rotate(0deg);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+.testimonialCard:hover .logoContainer::before {
+  opacity: 1;
 }
 
 .logo {
   max-width: 80%;
   max-height: 80%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  transition: transform 0.5s ease;
 }
 
+.testimonialCard:hover .logo {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .quote {
     font-size: 1.2rem;
+    transform: translateZ(15px);
+  }
+  
+  .logoContainer {
+    width: 60px;
+    height: 60px;
+    transform: translateZ(15px) rotate(-3deg);
+  }
+  
+  .testimonialCard:hover .logoContainer {
+    transform: translateZ(25px) rotate(0deg);
   }
 }

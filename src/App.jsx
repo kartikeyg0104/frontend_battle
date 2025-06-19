@@ -12,40 +12,86 @@ import StatsSection from './components/StatsSection/StatsSection';
 import CarbonGraph from './components/CarbonGraph/CarbonGraph';
 import TestimonialsSection from './components/TestimonialsSection/TestimonialsSection';
 import RippleBackground from './components/RippleBackground/RippleBackground';
+import { gsap } from 'gsap';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
+import PageTransition from './components/PageTransition/PageTransition';
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Simulate loading time
+    // Simulate loading time with a slightly more dramatic reveal
     const timer = setTimeout(() => {
       setIsLoaded(true);
-    }, 3000);
+      
+      // Add page-wide transition once loader is gone
+      setTimeout(() => {
+        // Reveal sections with staggered appearance
+        gsap.fromTo(
+          '.app > section',
+          { 
+            opacity: 0,
+            y: 30,
+            filter: 'blur(5px)'
+          },
+          { 
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: 1,
+            stagger: 0.15,
+            ease: 'power2.out',
+          }
+        );
+      }, 1000); // Start after loader fade completes
+    }, 3500); // Give loader more time to showcase animations
     
     return () => clearTimeout(timer);
   }, []);
 
+  // Add global scroll function for navigation
+  useEffect(() => {
+    // Make global scroll function available to all components
+    window.scrollToSection = (sectionSelector) => {
+      const section = document.querySelector(sectionSelector);
+      if (section) {
+        section.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    };
+    
+    return () => {
+      delete window.scrollToSection;
+    };
+  }, []);
+
   return (
-    <div className="app">
-      <Loader isLoaded={isLoaded} />
-      {isLoaded && (
-        <>
-          {/* Global interactive background - will show on HeroSection */}
-          <RippleBackground />
-          
-          <HeroSection />
-          <CustomerSection />
-          <CapabilitiesSection />
-          <ParallaxSection />
-          <ScrollScene />
-          <ProjectShowcase />
-          <BrandKits />
-          <StatsSection />
-          <CarbonGraph />
-          <TestimonialsSection />
-        </>
-      )}
-    </div>
+    <PageTransition>
+      <div className="app">
+        <Loader isLoaded={isLoaded} />
+        {isLoaded && (
+          <>
+            {/* Global interactive background - will show on HeroSection */}
+            <RippleBackground />
+            
+            <Navbar />
+            <main>
+              <HeroSection />
+              <CustomerSection />
+              <CapabilitiesSection />
+              <ProjectShowcase />
+              <ParallaxSection />
+              <ScrollScene />
+              <TestimonialsSection />
+              <CarbonGraph />
+            </main>
+            <Footer />
+          </>
+        )}
+      </div>
+    </PageTransition>
   );
 }
 

@@ -1,41 +1,248 @@
 .testimonialsSection {
   padding: var(--spacing-xl) 0;
   background-color: #f8f9fa;
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px;
+  isolation: isolate;
+}
+
+/* Enhanced effortel-style grid with animated gradient */
+.testimonialsSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(58, 134, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(58, 134, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  opacity: 0.7;
+  z-index: 0;
+  animation: gridPulse 20s linear infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% { 
+    background-position: 0 0;
+    background-size: 20px 20px;
+  }
+  50% { 
+    background-position: 10px 10px;
+    background-size: 22px 22px;
+  }
+}
+
+/* Advanced subtle gradient overlay */
+.testimonialsSection::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(58, 134, 255, 0.05) 0%, transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(255, 0, 110, 0.05) 0%, transparent 60%);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .testimonialsHeader {
   text-align: center;
   margin-bottom: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
 }
 
 .title {
   font-size: 2.5rem;
   color: var(--text-primary);
   margin-bottom: var(--spacing-sm);
+  position: relative;
+  transform: translateZ(20px);
+  letter-spacing: -0.02em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Enhanced underline with animated gradient */
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: 3px;
+  animation: gradientShift 6s ease-in-out infinite alternate;
+  background-size: 200% 100%;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .subtitle {
   font-size: 1.8rem;
   color: var(--secondary-color);
   font-weight: 600;
+  min-height: 2.2rem; /* Ensure height is stable during animation */
+  opacity: 0; /* Start invisible for animation */
+  transform: translateZ(10px);
+  position: relative;
+  letter-spacing: -0.01em;
 }
 
 .testimonialsContainer {
   position: relative;
   overflow: hidden;
   margin-bottom: var(--spacing-xl);
+  z-index: 1;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.05), 
+    0 5px 15px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: box-shadow 0.5s ease, transform 0.5s ease;
+}
+
+.testimonialsContainer:hover {
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.08), 
+    0 10px 20px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(58, 134, 255, 0.1) inset;
+  transform: translateY(-5px);
 }
 
 .testimonialsCarousel {
   display: flex;
-  transition: transform var(--transition-normal);
+  transition: transform var(--transition-normal) cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+  transform-style: preserve-3d;
 }
 
+/* Advanced avatar row with 3D effects */
+.avatarRow {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  perspective: 800px;
+  transform-style: preserve-3d;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0.5;
+  transform: scale(0.8) translateZ(0) rotateY(0deg);
+  filter: grayscale(100%);
+  will-change: transform, opacity, filter;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.avatarInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* Advanced animated gradient border effect */
+.avatar::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: conic-gradient(
+    transparent 0deg,
+    rgba(58, 134, 255, 0.5) 60deg,
+    rgba(255, 0, 110, 0.5) 180deg,
+    rgba(58, 134, 255, 0.5) 300deg,
+    transparent 360deg
+  );
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  animation: rotateBorder 4s linear infinite;
+}
+
+@keyframes rotateBorder {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.avatar.active {
+  border-color: transparent;
+  opacity: 1;
+  transform: scale(1) translateZ(40px) rotateY(0deg);
+  box-shadow: 
+    0 8px 25px rgba(58, 134, 255, 0.3), 
+    0 0 30px rgba(58, 134, 255, 0.2);
+  filter: grayscale(0%);
+}
+
+.avatar.active::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Enhanced shine effect on hover with 3D rotation */
+.avatar:hover:not(.active) {
+  opacity: 0.9;
+  transform: scale(0.9) translateZ(20px) rotateY(-10deg);
+  border-color: rgba(58, 134, 255, 0.3);
+  box-shadow: 
+    0 5px 15px rgba(58, 134, 255, 0.2),
+    0 0 20px rgba(58, 134, 255, 0.1);
+  filter: grayscale(50%);
+}
+
+.avatar:hover:not(.active)::before {
+  opacity: 0.6;
+}
+
+/* Add overflow image effect */
+.avatar img {
+  transition: transform 0.5s ease-out;
+  transform: scale(1);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar:hover img {
+  transform: scale(1.15);
+}
+
+/* Enhanced indicators with animations */
 .carouselIndicators {
   display: flex;
   justify-content: center;
   gap: var(--spacing-sm);
-  margin-top: var(--spacing-lg);
+  margin-top: var(--spacing-md);
 }
 
 .indicator {
@@ -46,45 +253,123 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: background-color var(--transition-fast);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.indicator::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
 .indicator.active {
-  background-color: var(--primary-color);
+  transform: scale(1.4);
+  box-shadow: 0 0 12px rgba(58, 134, 255, 0.6), 0 0 25px rgba(58, 134, 255, 0.4);
+  animation: indicatorActive 2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
 }
 
+@keyframes indicatorActive {
+  0% {
+    transform: scale(1.4);
+    box-shadow: 0 0 12px rgba(58, 134, 255, 0.6), 0 0 25px rgba(58, 134, 255, 0.4);
+  }
+  100% {
+    transform: scale(1.5);
+    box-shadow: 0 0 20px rgba(58, 134, 255, 0.8), 0 0 35px rgba(58, 134, 255, 0.6);
+  }
+}
+
+.indicator.active::before {
+  opacity: 1;
+}
+
+.indicator:hover:not(.active) {
+  transform: scale(1.2);
+  background-color: #bbb;
+}
+
+/* Pricing section with 3D effects */
 .pricingSection {
   padding-top: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+  transform-style: preserve-3d;
 }
 
 .pricingHeader {
   text-align: center;
   margin-bottom: var(--spacing-xl);
+  transform-style: preserve-3d;
 }
 
 .pricingDescription {
   font-size: 1.2rem;
   color: var(--text-secondary);
   margin-bottom: var(--spacing-md);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  transform: translateZ(10px);
 }
 
 .startingPrice {
   font-size: 1.1rem;
   color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+  transform: translateZ(15px);
 }
 
 .startingPrice span {
   font-weight: 700;
   color: var(--primary-color);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  position: relative;
+}
+
+.startingPrice span::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-color-light));
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.startingPrice:hover span::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
 .pricingGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-lg);
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
+/* Add floating animation for pricing cards */
+@keyframes pricingCardFloat {
+  0% { transform: translateZ(0); }
+  50% { transform: translateZ(15px); }
+  100% { transform: translateZ(0); }
+}
+
+/* Enhance responsive styles */
 @media (max-width: 1024px) {
   .pricingGrid {
     grid-template-columns: repeat(2, 1fr);
@@ -94,13 +379,163 @@
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;
+    transform: translateZ(10px);
   }
   
   .subtitle {
     font-size: 1.5rem;
+    transform: translateZ(5px);
+  }
+  
+  .avatarRow {
+    gap: var(--spacing-sm);
+  }
+  
+  .avatar {
+    width: 50px;
+    height: 50px;
   }
   
   .pricingGrid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Enhanced character animation for text effect */
+.subtitle span {
+  display: inline-block;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+}
+
+/* Enhanced floating animation for testimonial cards */
+@keyframes float {
+  0% { transform: translateY(0px) rotateX(0deg); }
+  50% { transform: translateY(-8px) rotateX(2deg); }
+  100% { transform: translateY(0px) rotateX(0deg); }
+}
+
+.testimonialCard {
+  animation: float 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.watchVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.avatar.active:hover .watchVideo {
+  opacity: 1;
+}
+
+.watchIcon {
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-color);
+  font-size: 12px;
+}
+
+.videoModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(0);
+  animation: modalBackdropReveal 0.5s forwards;
+}
+
+@keyframes modalBackdropReveal {
+  to {
+    backdrop-filter: blur(10px);
+  }
+}
+
+.videoContainer {
+  width: 90%;
+  max-width: 800px;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  transform: translateY(50px) scale(0.9);
+  opacity: 0;
+  animation: modalContainerReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes modalContainerReveal {
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.closeVideo {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  z-index: 2;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.closeVideo:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(90deg) scale(1.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.videoHeader {
+  padding: 20px;
+  background: var(--light-bg);
+}
+
+.videoHeader h3 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.videoHeader p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.testimonialVideo {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16/9;
+  background: #000;
 }

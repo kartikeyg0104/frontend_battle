@@ -139,6 +139,27 @@ const CarbonGraph = () => {
     setStatus(newStatus);
   };
   
+  // Add download functionality
+  const handleDownload = () => {
+    // Create a fake data CSV
+    const csvContent = "Month,Emissions\nJan,42\nFeb,38\nMar,45\nApr,40\nMay,35\nJun,32\nJul,30\nAug,28\nSep,25";
+    
+    // Create a download link
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    
+    // Set link properties
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'carbon_emissions_data.csv');
+    link.style.visibility = 'hidden';
+    
+    // Add to document, click it, and remove it
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
   return (
     <section className={styles.carbonSection}>
       <div className="container">
@@ -149,7 +170,10 @@ const CarbonGraph = () => {
               <p className={styles.subtitle}>Monthly carbon emissions from manufacturing operations</p>
             </div>
             
-            <button className={styles.downloadButton}>
+            <button 
+              className={styles.downloadButton}
+              onClick={handleDownload}
+            >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 16L12 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                 <path d="M9 13L12 16L15 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

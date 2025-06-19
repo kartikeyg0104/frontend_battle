@@ -2,11 +2,27 @@ import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import styles from './HeroSection.module.css';
 import BackgroundDataItem from './BackgroundDataItem';
+import styled from 'styled-components';
+
+const HeroSectionWithBg = styled.section`
+  ${(props) => props.className} {
+    background-image: linear-gradient(rgba(18, 18, 24, 0.75), rgba(26, 26, 46, 0.80)), 
+                    url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+`;
 
 const HeroSection = () => {
   const [activeContent, setActiveContent] = useState('reports');
   const [backgroundItems, setBackgroundItems] = useState([]);
+  const [showVideo, setShowVideo] = useState(true);
   const heroRef = useRef(null);
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const ctaRef = useRef(null);
+  const videoRef = useRef(null);
   
   // Function to add background items periodically
   useEffect(() => {
@@ -61,54 +77,120 @@ const HeroSection = () => {
     );
   }, [activeContent]);
 
+  // GSAP animation for hero text
+  useEffect(() => {
+    // Animate the hero elements with proper timing to avoid overlay
+    const tl = gsap.timeline();
+    
+    tl.from(titleRef.current, {
+      y: 50,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    })
+    .from(subtitleRef.current, {
+      y: 30,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    }, "-=0.6") // Start slightly before the title animation finishes
+    .from(ctaRef.current, {
+      y: 20,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out"
+    }, "-=0.4");
+  }, []);
+  
+  // Handle video loading or errors
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.addEventListener('error', () => {
+        setShowVideo(false);
+      });
+    }
+  }, []);
+  
+  // Add scroll functionality for buttons
+  const handleGetStarted = () => {
+    // Scroll to CapabilitiesSection
+    document.querySelector('.capabilitiesSection').scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+  
+  const handleLearnMore = () => {
+    // Scroll to ParallaxSection
+    document.querySelector('.parallaxSection').scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
+  
+  // Add scroll down functionality
+  const handleScrollDown = () => {
+    window.scrollBy({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
+  
   return (
-    <section ref={heroRef} className={styles.heroSection}>
+    <HeroSectionWithBg className={styles.heroSection}>
+      {/* Video Background */}
+      {showVideo && (
+        <div className={styles.videoBackground}>
+          <video 
+            ref={videoRef}
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className={styles.backgroundVideo}
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-technology-futuristic-animation-of-digital-matrix-48592-large.mp4" type="video/mp4" />
+          </video>
+        </div>
+      )}
+      
       <div className={styles.backgroundElements}>
         {backgroundItems.map(item => (
           <BackgroundDataItem key={item.id} item={item} />
         ))}
       </div>
       
-      <div className={styles.header}>
-        {/* This would be a separate Header component */}
-        <div className={styles.logo}>Brand</div>
-        <nav className={styles.nav}>
-          <ul>
-            <li>Services</li>
-            <li>Work</li>
-            <li>About</li>
-            <li>Contact</li>
-          </ul>
-        </nav>
+      <div className={styles.contentWrapper}>
+        <h1 ref={titleRef} className={styles.title}>
+          Transforming Digital <span className={styles.highlight}>Experiences</span>
+        </h1>
+        
+        <div ref={subtitleRef} className={styles.subtitleContainer}>
+          <p className={styles.subtitle}>
+            We create innovative solutions that elevate your brand and engage your audience.
+          </p>
+        </div>
+        
+        <div ref={ctaRef} className={styles.ctaContainer}>
+          <button 
+            className={styles.primaryButton}
+            onClick={handleGetStarted}
+          >
+            Get Started
+          </button>
+          <button 
+            className={styles.secondaryButton}
+            onClick={handleLearnMore}
+          >
+            Learn More
+          </button>
+        </div>
       </div>
       
-      <div className={styles.heroContent}>
-        <h1>Transform Your Business with Smart Analytics</h1>
-        <p>Unlock insights from your data with our powerful platform</p>
-        
-        <div className={styles.ctas}>
-          <button className={styles.primaryBtn}>Get Started</button>
-          <a href="#learn-more" className={styles.secondaryBtn}>Learn More</a>
-        </div>
-        
-        <div className={styles.contentHighlight}>
-          <div className={`${styles.contentItem} ${styles.reports} ${activeContent === 'reports' ? styles.active : ''}`}>
-            <h3>Comprehensive Reports</h3>
-            <p>Gain detailed insights into your business performance with our advanced reporting tools.</p>
-          </div>
-          
-          <div className={`${styles.contentItem} ${styles.forecasts} ${activeContent === 'forecasts' ? styles.active : ''}`}>
-            <h3>Accurate Forecasts</h3>
-            <p>Plan ahead with confidence using our AI-powered predictive analytics.</p>
-          </div>
-          
-          <div className={`${styles.contentItem} ${styles.consolidations} ${activeContent === 'consolidations' ? styles.active : ''}`}>
-            <h3>Data Consolidation</h3>
-            <p>Bring all your data sources together for a unified view of your business.</p>
-          </div>
-        </div>
+      {/* Add scroll down indicator */}
+      <div className={styles.scrollDown} onClick={handleScrollDown}>
+        <div className={styles.scrollDownText}>Scroll Down</div>
+        <div className={styles.scrollDownIcon}></div>
       </div>
-    </section>
+    </HeroSectionWithBg>
   );
 };
 

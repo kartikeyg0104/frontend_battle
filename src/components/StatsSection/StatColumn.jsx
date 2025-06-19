@@ -12,18 +12,22 @@ const StatColumn = ({ stat, animate }) => {
   // Animation when component becomes visible
   useEffect(() => {
     if (animate && valueRef.current) {
-      // Animate the main value counting up
+      // Animate the main value counting up with improved effect
       gsap.fromTo(
         valueRef.current,
         { 
           textContent: 0,
-          opacity: 0
+          opacity: 0,
+          y: 15,
+          filter: 'blur(5px)'
         },
         {
           textContent: stat.currentValue,
           opacity: 1,
-          duration: 2,
-          ease: 'power2.out',
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 2.5,
+          ease: 'power3.out',
           snap: { textContent: stat.title === 'Conversion Rate' ? 0.1 : 1 },
           onUpdate: function() {
             if (stat.title === 'Conversion Rate') {
@@ -35,21 +39,40 @@ const StatColumn = ({ stat, animate }) => {
         }
       );
       
-      // Animate bars
+      // Animate change indicator with bounce effect
+      gsap.fromTo(
+        `.${styles.change}`,
+        { scale: 0, opacity: 0 },
+        { 
+          scale: 1, 
+          opacity: 1, 
+          duration: 0.6, 
+          delay: 1,
+          ease: 'back.out(2.5)'
+        }
+      );
+      
+      // Animate bars with staggered timeline
+      const tl = gsap.timeline({ delay: 0.8 });
+      
       barsRef.current.forEach((bar, index) => {
-        gsap.fromTo(
+        tl.fromTo(
           bar,
-          { width: 0 },
+          { 
+            width: 0,
+            opacity: 0.5
+          },
           { 
             width: `${(stat.yearlyData[index].value / maxValue) * 100}%`,
-            duration: 1.5,
-            delay: 0.2 * index,
-            ease: 'power2.out'
-          }
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power3.out'
+          },
+          index * 0.2 // Stagger start times
         );
       });
     }
-  }, [animate, stat]);
+  }, [animate, stat, maxValue]);
   
   return (
     <div className={styles.statColumn}>

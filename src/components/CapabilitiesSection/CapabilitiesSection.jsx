@@ -19,6 +19,17 @@ const CapabilitiesSection = () => {
     );
   }, [activeTab]);
   
+  // Add contact button functionality
+  const handleContactClick = () => {
+    // Create a simple contact form modal
+    const userInput = prompt("Please enter your email to get in touch:", "");
+    
+    if (userInput) {
+      // In a real app, this would submit to an API
+      alert(`Thank you! We'll contact you at ${userInput} soon.`);
+    }
+  };
+  
   return (
     <section ref={sectionRef} className={styles.capabilitiesSection}>
       <div className="container">
@@ -58,7 +69,12 @@ const CapabilitiesSection = () => {
         <div className="container">
           <div className={styles.bottomNavContent}>
             <span>Ready to get started?</span>
-            <button className={styles.cta}>Contact Us</button>
+            <button 
+              className={styles.cta}
+              onClick={handleContactClick}
+            >
+              Contact Us
+            </button>
           </div>
         </div>
       </div>

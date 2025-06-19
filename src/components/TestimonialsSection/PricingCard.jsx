@@ -1,6 +1,18 @@
 import styles from './PricingCard.module.css';
 
 const PricingCard = ({ plan }) => {
+  // Add pricing selection functionality
+  const handleSelectPlan = () => {
+    // Display a confirmation dialog
+    if (window.confirm(`You've selected the ${plan.name} plan at $${plan.price}/${plan.period}. Would you like to proceed?`)) {
+      // In a real app, this would navigate to a signup or checkout page
+      console.log(`Selected plan: ${plan.name}`);
+      
+      // Simulate a form submission or redirect
+      alert(`Thank you for selecting the ${plan.name} plan. You'll be redirected to complete your purchase.`);
+    }
+  };
+  
   return (
     <div className={`${styles.pricingCard} ${plan.popular ? styles.popular : ''}`}>
       {plan.popular && (
@@ -26,7 +38,10 @@ const PricingCard = ({ plan }) => {
         ))}
       </ul>
       
-      <button className={styles.selectButton}>
+      <button 
+        className={styles.selectButton}
+        onClick={handleSelectPlan}
+      >
         Get Started
       </button>
     </div>
