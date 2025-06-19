@@ -1,0 +1,101 @@
+.capabilitiesSection {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--light-bg);
+  position: relative;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  font-size: 2rem;
+  color: var(--text-primary);
+}
+
+.tabsContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+  border-bottom: 1px solid #eee;
+}
+
+.tabButton {
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: color var(--transition-fast);
+}
+
+.tabButton:hover {
+  color: var(--primary-color);
+}
+
+.tabButton.active {
+  color: var(--primary-color);
+}
+
+.tabButton.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.tabContent {
+  min-height: 400px;
+  padding: var(--spacing-lg) 0;
+}
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
+  padding: var(--spacing-md) 0;
+  z-index: 10;
+}
+
+.bottomNavContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cta {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+}
+
+.cta:hover {
+  background-color: #2a75ee;
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tabButton {
+    width: 100%;
+    text-align: center;
+  }
+}

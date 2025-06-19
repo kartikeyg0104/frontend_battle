@@ -1,0 +1,174 @@
+.parallaxSection {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.backgroundLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; /* Taller than container to allow room for parallax movement */
+  z-index: 1;
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+.backgroundVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7) contrast(1.2);
+}
+
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/parallax-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  /* Only display if video fails to load */
+  display: none;
+}
+
+video:not([playsinline]) ~ .backgroundImage {
+  display: block;
+}
+
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  will-change: transform;
+}
+
+.midgroundLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.midgroundShape {
+  position: absolute;
+  bottom: -10%;
+  left: 10%;
+  width: 80%;
+  height: 40%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(58, 134, 255, 0.3) 0%,
+    rgba(58, 134, 255, 0) 70%
+  );
+  filter: blur(40px);
+  transform-origin: center;
+  border-radius: 50%;
+}
+
+.foregroundLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.foregroundShape {
+  position: absolute;
+  bottom: -5%;
+  right: 10%;
+  width: 60%;
+  height: 30%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 0, 110, 0.3) 0%,
+    rgba(255, 0, 110, 0) 70%
+  );
+  filter: blur(30px);
+  transform-origin: center;
+  border-radius: 50%;
+}
+
+.content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  padding: 0 var(--spacing-lg);
+  will-change: transform, opacity;
+  transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.content h2 {
+  font-size: 3.5rem;
+  margin-bottom: var(--spacing-md);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(45deg, #fff, #3a86ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content p {
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-lg);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  line-height: 1.6;
+}
+
+.button {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  transition: transform var(--transition-fast), filter var(--transition-fast);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+@media (max-width: 768px) {
+  .content h2 {
+    font-size: 2.5rem;
+  }
+  
+  .content p {
+    font-size: 1rem;
+  }
+}

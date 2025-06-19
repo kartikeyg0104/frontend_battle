@@ -1,0 +1,70 @@
+.rippleBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Fallback background if the canvas fails to load */
+.fallbackBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  background: linear-gradient(135deg, #121218, #1a1a2e);
+}
+
+.gradientOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(58, 134, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+/* When used as a section instead of a global background */
+.rippleSection {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.rippleSection .rippleBackground {
+  position: absolute;
+  pointer-events: auto;
+}
+
+.rippleContent {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.rippleTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(45deg, #fff, #3a86ff, #ff006e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rippleDescription {
+  font-size: 1.2rem;
+  max-width: 600px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}

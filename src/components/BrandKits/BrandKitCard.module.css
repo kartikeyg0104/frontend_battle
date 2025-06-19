@@ -1,0 +1,99 @@
+.card {
+  background-color: #1e1e1e;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  transition: all var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card.selected {
+  background-color: #2a2a2a;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.checkboxContainer {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: var(--spacing-md);
+}
+
+.checkboxContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.customCheckbox {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border: 2px solid #444;
+  border-radius: 4px;
+}
+
+.checkboxContainer input:checked ~ .customCheckbox {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.customCheckbox::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkboxContainer input:checked ~ .customCheckbox::after {
+  display: block;
+}
+
+.logoContainer {
+  flex: 1;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+}
+
+.settingsButton {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.settingsButton:hover {
+  color: white;
+}
+
+.cardContent {
+  color: white;
+}
+
+.brandName {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

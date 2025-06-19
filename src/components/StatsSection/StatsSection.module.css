@@ -1,0 +1,22 @@
+.statsSection {
+  padding: var(--spacing-xl) 0;
+  background-color: #f8f9fa;
+}
+
+.statsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+@media (max-width: 1024px) {
+  .statsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .statsContainer {
+    grid-template-columns: 1fr;
+  }
+}

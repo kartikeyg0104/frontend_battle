@@ -1,0 +1,29 @@
+.item {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+
+.number {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.miniChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 30px;
+}
+
+.bar {
+  width: 6px;
+  background-color: var(--primary-color);
+  border-radius: 2px 2px 0 0;
+}
+
+.text {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}

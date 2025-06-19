@@ -1,0 +1,119 @@
+.pricingCard {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.pricingCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.pricingCard.popular {
+  border: 2px solid var(--primary-color);
+  padding-top: calc(var(--spacing-xl) + 20px);
+}
+
+.popularBadge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: var(--spacing-xs);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.planName {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.currency {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-right: 4px;
+}
+
+.price {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.period {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-left: var(--spacing-xs);
+}
+
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--spacing-xl);
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+  color: var(--text-secondary);
+}
+
+.checkIcon {
+  color: var(--primary-color);
+  margin-right: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.selectButton {
+  width: 100%;
+  padding: var(--spacing-md);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.selectButton:hover {
+  background-color: #2a75ee;
+}
+
+.pricingCard.popular .selectButton {
+  background-color: #2a75ee;
+}
+
+.pricingCard.popular .selectButton:hover {
+  background-color: #1a65de;
+}
+
+@media (max-width: 768px) {
+  .priceContainer {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .price {
+    font-size: 3rem;
+  }
+}

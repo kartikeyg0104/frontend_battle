@@ -1,0 +1,106 @@
+.testimonialsSection {
+  padding: var(--spacing-xl) 0;
+  background-color: #f8f9fa;
+}
+
+.testimonialsHeader {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+  font-size: 1.8rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.testimonialsContainer {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--spacing-xl);
+}
+
+.testimonialsCarousel {
+  display: flex;
+  transition: transform var(--transition-normal);
+}
+
+.carouselIndicators {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ddd;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.indicator.active {
+  background-color: var(--primary-color);
+}
+
+.pricingSection {
+  padding-top: var(--spacing-xl);
+}
+
+.pricingHeader {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.pricingDescription {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.startingPrice {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.startingPrice span {
+  font-weight: 700;
+  color: var(--primary-color);
+  font-size: 1.3rem;
+}
+
+.pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+@media (max-width: 1024px) {
+  .pricingGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+  }
+  
+  .pricingGrid {
+    grid-template-columns: 1fr;
+  }
+}

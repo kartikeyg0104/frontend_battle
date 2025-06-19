@@ -1,0 +1,42 @@
+.brandKitsSection {
+  padding: var(--spacing-xl) 0;
+  background-color: var(--light-bg);
+}
+
+.brandKitsContainer {
+  background-color: var(--dark-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.brandKitsContainer::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  z-index: -1;
+  border-radius: calc(var(--radius-lg) + 2px);
+}
+
+.title {
+  color: white;
+  margin-bottom: var(--spacing-lg);
+  font-size: 2rem;
+}
+
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+  .cardsContainer {
+    grid-template-columns: 1fr;
+  }
+}

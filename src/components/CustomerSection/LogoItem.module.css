@@ -1,0 +1,20 @@
+.logoItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  opacity: 0.8;
+  transition: opacity var(--transition-normal);
+}
+
+.logoItem img {
+  max-width: 100%;
+  height: auto;
+  filter: grayscale(100%);
+  transition: filter var(--transition-normal);
+}
+
+.logoItem:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
